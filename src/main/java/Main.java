@@ -8,7 +8,6 @@ public class Main {
 
         File[] csvFiles = FilterFiles.finder();
         for(File f: csvFiles){
-            System.out.println(f.getName());
             HashMap <String, Integer> headers = ParseMetricFiles.getHeaders(f);
            /* for (Map.Entry<String,Integer> entry : headers.entrySet()) {
                 String key = entry.getKey();
@@ -19,8 +18,9 @@ public class Main {
             //Ticket Id,Subject,Status,Type,Requester Name,First Response Time (in Hrs),Resolution Time (in Hrs)
             Vector <String> results = ParseMetricFiles.rowToVector(f, headers.get("Col4"));
             Double average = Operations.getAverageForCol(results);
-            System.out.println("Average is: " + average);
-
+            System.out.println("Average is: " + average + " for " + f.getName());
+            double median = Operations.getMedianForCol(results);
+            System.out.println("Median is: " + median + " for " + f.getName());
         }
     }
 }

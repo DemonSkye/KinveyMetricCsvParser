@@ -22,4 +22,19 @@ public class Operations {
         average /= numericValues.size();
         return average;
     }
+
+
+    public static double getMedianForCol(Vector<String> someValues){
+        Vector <Double> numericValues = new Vector<Double>();
+        for(String s: someValues){
+            try {
+                numericValues.add(Double.parseDouble(s));
+            }catch(NumberFormatException nfe){ System.err.println("Ignore the column header...Zzzzz"); }
+        }
+        Collections.sort(numericValues);
+
+
+        double median = numericValues.get(numericValues.size()/2);
+        return median;
+    }
 }
