@@ -41,7 +41,6 @@ public class Operations {
     public static double getAverageResolutionTime (Vector<String> firstReply){
         double minutes = 0.0;
         for(String s: firstReply){
-            System.out.println("s: " +s);
             if(!s.contains("First")) {
                 DateTime resolutionTime = new DateTime(s);
                 minutes += resolutionTime.getMinute();
@@ -65,7 +64,6 @@ public class Operations {
             }
         }
         Collections.sort(minutes);
-        System.out.println(minutes);
         return minutes.get(minutes.size()/2);
     }
 
@@ -117,8 +115,6 @@ public class Operations {
         }
         return ticketTypes;
     }
-
-
 
 
 
