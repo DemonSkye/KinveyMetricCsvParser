@@ -4,16 +4,26 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
 import com.opencsv.*;
+
 public class ParseMetricFiles {
 
     //Parse row to new Vector & return to caller
-    public static Vector<String> rowToVector(File csv, Integer i){
+    public static Vector<String> colToVector(File csv, Integer i){
         Vector<String> results = new Vector<String>();
         String[] nextLine;
+        boolean isValid = true;
         try {
             CSVReader csvReader = new CSVReader(new FileReader(csv));
             while( (nextLine = csvReader.readNext() ) != null){
-                results.add(nextLine[i] );
+                for(String s: nextLine){
+                    if(s.toLowerCase().contains("junk") || s.toLowerCase().contains("duplicate") || s.toLowerCase().contains("spam")){
+                        isValid =false;
+                    }
+                }
+                if(isValid) {
+                    results.add(nextLine[i]);
+                }
+                isValid = true;
             }
         }catch (IOException ioe){ ioe.printStackTrace(); }
         return results;
@@ -38,7 +48,6 @@ public class ParseMetricFiles {
             }
         }catch (IOException ioe){ ioe.printStackTrace(); }
         return headerMapping;
-
     }
 
 }

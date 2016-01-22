@@ -14,13 +14,19 @@ public class Main {
                 Integer value = entry.getValue();
                 System.out.println("Key: " + key + " -- Value: " + value); //Debug
             }*/
-
             //Ticket Id,Subject,Status,Type,Requester Name,First Response Time (in Hrs),Resolution Time (in Hrs)
-            Vector <String> results = ParseMetricFiles.rowToVector(f, headers.get("Col4"));
-            Double average = Operations.getAverageForCol(results);
-            System.out.println("Average is: " + average + " for " + f.getName());
-            double median = Operations.getMedianForCol(results);
-            System.out.println("Median is: " + median + " for " + f.getName());
+            Vector <String> results = ParseMetricFiles.colToVector(f, headers.get("First Response Time (in Hrs)"));
+            Double averageMinutesToFirstReply = Operations.getAverageResolutionTime(results);
+            System.out.println("Average minutes to first reply: " + averageMinutesToFirstReply );
+            double median = Operations.getMedianfirstReplyTime(results);
+            System.out.println("Median first reply time is: " + median );
+            HashMap<String, Double> types = Operations.getTicketTypes ( ParseMetricFiles.colToVector(f, headers.get("Type")));
+            for(Map.Entry<String,Double> entry: types.entrySet() ){
+                String key = entry.getKey();
+                Double value = entry.getValue();
+                System.out.println("Type:" + key + " " + value*100 + "%");
+            }
+
         }
     }
 }
